@@ -1,0 +1,3103 @@
+{
+  "namespace": "cappo.cds",
+  "definitions": {
+    "cappo.cds.CDSViews": {
+      "kind": "context"
+    },
+    "cappo.cds.CDSViews.POWorklist": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "jayasree.db.transaction.purchaseorder"
+            ]
+          },
+          "columns": [
+            {
+              "key": true,
+              "ref": [
+                "PO_ID"
+              ],
+              "as": "PurchaseOrderId"
+            },
+            {
+              "key": true,
+              "ref": [
+                "Items",
+                "PO_ITEM_POS"
+              ],
+              "as": "ItemPosition"
+            },
+            {
+              "ref": [
+                "PARTNER_GUID",
+                "BP_ID"
+              ],
+              "as": "PartnerId"
+            },
+            {
+              "ref": [
+                "PARTNER_GUID",
+                "COMPANY_NAME"
+              ],
+              "as": "CompanyName"
+            },
+            {
+              "ref": [
+                "GROSS_AMOUNT"
+              ],
+              "as": "GrossAmount"
+            },
+            {
+              "ref": [
+                "NET_AMOUNT"
+              ],
+              "as": "NetAmount"
+            },
+            {
+              "ref": [
+                "TAX_Amount"
+              ],
+              "as": "TaxAmount"
+            },
+            {
+              "ref": [
+                "CURRENCY"
+              ],
+              "as": "CurrencyCode"
+            },
+            {
+              "ref": [
+                "OVERALL_STATUS"
+              ],
+              "as": "Status"
+            },
+            {
+              "ref": [
+                "Items",
+                "PRODUCT_GUID",
+                "PRODUCT_ID"
+              ],
+              "as": "ProductId"
+            },
+            {
+              "ref": [
+                "Items",
+                "PRODUCT_GUID",
+                "DESCRIPTION"
+              ],
+              "as": "ProductName"
+            },
+            {
+              "ref": [
+                "PARTNER_GUID",
+                "ADDRESS_GUID",
+                "CITY"
+              ],
+              "as": "City"
+            },
+            {
+              "ref": [
+                "PARTNER_GUID",
+                "ADDRESS_GUID",
+                "COUNTRY"
+              ],
+              "as": "Country"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "PurchaseOrderId": {
+          "@title": "{i18n>po_id}",
+          "key": true,
+          "type": "cds.String",
+          "length": 40
+        },
+        "ItemPosition": {
+          "@title": "{i18n>po_item_pos}",
+          "key": true,
+          "type": "cds.Integer"
+        },
+        "PartnerId": {
+          "@title": "{i18n>bp_id}",
+          "type": "cds.String",
+          "length": 32
+        },
+        "CompanyName": {
+          "@title": "{i18n>company_name}",
+          "type": "cds.String",
+          "length": 250
+        },
+        "GrossAmount": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NetAmount": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TaxAmount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "CurrencyCode": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "Status": {
+          "@title": "{i18n>overall_status}",
+          "type": "cds.String",
+          "length": 1
+        },
+        "ProductId": {
+          "@title": "{i18n>product_guid}",
+          "type": "cds.String",
+          "length": 28
+        },
+        "ProductName": {
+          "@title": "{i18n>name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "City": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "Country": {
+          "type": "cds.String",
+          "length": 44
+        }
+      }
+    },
+    "cappo.cds.CDSViews.ProductValueHelp": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "jayasree.db.master.product"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "PRODUCT_ID"
+              ],
+              "as": "ProductId"
+            },
+            {
+              "ref": [
+                "DESCRIPTION"
+              ],
+              "as": "Description"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "ProductId": {
+          "@EndUserText.label": [
+            {
+              "language": "EN",
+              "text": "Product id"
+            },
+            {
+              "language": "DE",
+              "text": "Prodek id"
+            }
+          ],
+          "@title": "{i18n>product_guid}",
+          "type": "cds.String",
+          "length": 28
+        },
+        "Description": {
+          "@EndUserText.label": [
+            {
+              "language": "EN",
+              "text": "Product Description"
+            },
+            {
+              "language": "DE",
+              "text": "Prodek Description"
+            }
+          ],
+          "@title": "{i18n>name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        }
+      }
+    },
+    "cappo.cds.CDSViews.ItemView": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "jayasree.db.transaction.poitems"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "PARENT_KEY",
+                "PARTNER_GUID",
+                "NODE_KEY"
+              ],
+              "as": "CustomerId"
+            },
+            {
+              "ref": [
+                "PRODUCT_GUID",
+                "NODE_KEY"
+              ],
+              "as": "ProductId"
+            },
+            {
+              "ref": [
+                "CURRENCY"
+              ],
+              "as": "CurrencyCode"
+            },
+            {
+              "ref": [
+                "GROSS_AMOUNT"
+              ],
+              "as": "GrossAmount"
+            },
+            {
+              "ref": [
+                "NET_AMOUNT"
+              ],
+              "as": "NetAmount"
+            },
+            {
+              "ref": [
+                "TAX_Amount"
+              ],
+              "as": "TaxAmount"
+            },
+            {
+              "ref": [
+                "PARENT_KEY",
+                "OVERALL_STATUS"
+              ],
+              "as": "Status"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "CustomerId": {
+          "@title": "{i18n>bp_key}",
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "ProductId": {
+          "@title": "{i18n>product_key}",
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "CurrencyCode": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GrossAmount": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NetAmount": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TaxAmount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "Status": {
+          "@title": "{i18n>overall_status}",
+          "type": "cds.String",
+          "length": 1
+        }
+      }
+    },
+    "cappo.cds.CDSViews.ProductView": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "jayasree.db.master.product"
+            ]
+          },
+          "mixin": {
+            "PO_ORDER": {
+              "type": "cds.Association",
+              "cardinality": {
+                "max": "*"
+              },
+              "target": "cappo.cds.CDSViews.ItemView",
+              "on": [
+                {
+                  "ref": [
+                    "PO_ORDER",
+                    "ProductId"
+                  ]
+                },
+                "=",
+                {
+                  "ref": [
+                    "$projection",
+                    "ProductId"
+                  ]
+                }
+              ]
+            }
+          },
+          "columns": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ],
+              "as": "ProductId"
+            },
+            {
+              "ref": [
+                "DESCRIPTION"
+              ],
+              "as": "Description"
+            },
+            {
+              "ref": [
+                "CATEGORY"
+              ],
+              "as": "Category"
+            },
+            {
+              "ref": [
+                "PRICE"
+              ],
+              "as": "Price"
+            },
+            {
+              "ref": [
+                "SUPPLIER_GUID",
+                "BP_ID"
+              ],
+              "as": "SupplierId"
+            },
+            {
+              "ref": [
+                "SUPPLIER_GUID",
+                "COMPANY_NAME"
+              ],
+              "as": "SupplierName"
+            },
+            {
+              "ref": [
+                "SUPPLIER_GUID",
+                "ADDRESS_GUID",
+                "CITY"
+              ],
+              "as": "City"
+            },
+            {
+              "ref": [
+                "SUPPLIER_GUID",
+                "ADDRESS_GUID",
+                "COUNTRY"
+              ],
+              "as": "Country"
+            },
+            {
+              "ref": [
+                "PO_ORDER"
+              ],
+              "as": "To_Items"
+            }
+          ]
+        }
+      },
+      "elements": {
+        "ProductId": {
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "Description": {
+          "@title": "{i18n>name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "Category": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "Price": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "SupplierId": {
+          "@title": "{i18n>bp_id}",
+          "type": "cds.String",
+          "length": 32
+        },
+        "SupplierName": {
+          "@title": "{i18n>company_name}",
+          "type": "cds.String",
+          "length": 250
+        },
+        "City": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "Country": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "To_Items": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "cappo.cds.CDSViews.ItemView",
+          "on": [
+            {
+              "ref": [
+                "To_Items",
+                "ProductId"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self",
+                "ProductId"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "cappo.cds.CDSViews.CProductValuesView": {
+      "kind": "entity",
+      "query": {
+        "SELECT": {
+          "from": {
+            "ref": [
+              "cappo.cds.CDSViews.ProductView"
+            ]
+          },
+          "columns": [
+            {
+              "ref": [
+                "ProductId"
+              ]
+            },
+            {
+              "ref": [
+                "Country"
+              ]
+            },
+            {
+              "func": "round",
+              "args": [
+                {
+                  "func": "sum",
+                  "args": [
+                    {
+                      "ref": [
+                        "To_Items",
+                        "GrossAmount"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "val": 2
+                }
+              ],
+              "as": "TotalPurchaseAmount",
+              "cast": {
+                "type": "cds.Decimal",
+                "precision": 10,
+                "scale": 2
+              }
+            },
+            {
+              "ref": [
+                "To_Items",
+                "CurrencyCode"
+              ],
+              "as": "CurrencyCode"
+            }
+          ],
+          "groupBy": [
+            {
+              "ref": [
+                "ProductId"
+              ]
+            },
+            {
+              "ref": [
+                "Country"
+              ]
+            },
+            {
+              "ref": [
+                "To_Items",
+                "CurrencyCode"
+              ]
+            }
+          ]
+        }
+      },
+      "elements": {
+        "ProductId": {
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "Country": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "TotalPurchaseAmount": {
+          "@Core.Computed": true,
+          "type": "cds.Decimal",
+          "precision": 10,
+          "scale": 2
+        },
+        "CurrencyCode": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "jayasree.common.Guid": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 32
+    },
+    "jayasree.common.Gender": {
+      "kind": "type",
+      "type": "cds.String",
+      "length": 1,
+      "enum": {
+        "male": {
+          "val": "M"
+        },
+        "female": {
+          "val": "F"
+        },
+        "undisclosed": {
+          "val": "U"
+        }
+      }
+    },
+    "jayasree.common.AmountT": {
+      "kind": "type",
+      "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+      "@sap.unit": "CURRENCY_CODE",
+      "type": "cds.Decimal",
+      "precision": 10,
+      "scale": 2
+    },
+    "jayasree.common.Amount": {
+      "kind": "aspect",
+      "elements": {
+        "CURRENCY": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GROSS_AMOUNT": {
+          "@title": "{i18n>GrossAmount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NET_AMOUNT": {
+          "@title": "{i18n>NetAmount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TAX_Amount": {
+          "@title": "{i18n>TaxAmount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        }
+      }
+    },
+    "jayasree.common.PhoneNumber": {
+      "kind": "type",
+      "@assert.format": "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$",
+      "type": "cds.String",
+      "length": 30
+    },
+    "jayasree.common.Email": {
+      "kind": "type",
+      "@assert.format": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
+      "type": "cds.String",
+      "length": 225
+    },
+    "jayasree.db.master": {
+      "kind": "context"
+    },
+    "jayasree.db.master.businesspartner": {
+      "kind": "entity",
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>bp_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "BP_ROLE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "EMAIL_ADDRESS": {
+          "type": "cds.String",
+          "length": 105
+        },
+        "PHONE_Number": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "FAX_NUMBER": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "WEB_ADDRESS": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "ADDRESS_GUID": {
+          "type": "cds.Association",
+          "target": "jayasree.db.master.address",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "BP_ID": {
+          "@title": "{i18n>bp_id}",
+          "type": "cds.String",
+          "length": 32
+        },
+        "COMPANY_NAME": {
+          "@title": "{i18n>company_name}",
+          "type": "cds.String",
+          "length": 250
+        }
+      }
+    },
+    "jayasree.db.master.address": {
+      "kind": "entity",
+      "elements": {
+        "NODE_KEY": {
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "CITY": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "POSTAL_CODE": {
+          "type": "cds.String",
+          "length": 8
+        },
+        "STREET": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "BUILDING": {
+          "type": "cds.String",
+          "length": 128
+        },
+        "COUNTRY": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "ADDRESS_TYPE": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "VAL_START_DATE": {
+          "type": "cds.Date"
+        },
+        "VAL_END_DATE": {
+          "type": "cds.Date"
+        },
+        "LATITUDE": {
+          "type": "cds.Decimal"
+        },
+        "LONGITUDE": {
+          "type": "cds.Decimal"
+        },
+        "businesspartner": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "jayasree.db.master.businesspartner",
+          "on": [
+            {
+              "ref": [
+                "businesspartner",
+                "ADDRESS_GUID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "jayasree.db.master.product": {
+      "kind": "entity",
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "PRODUCT_ID": {
+          "@title": "{i18n>product_guid}",
+          "type": "cds.String",
+          "length": 28
+        },
+        "TYPE_CODE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CATEGORY": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "DESCRIPTION": {
+          "@title": "{i18n>name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "SUPPLIER_GUID": {
+          "type": "cds.Association",
+          "target": "jayasree.db.master.businesspartner",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "TAX_TARIF_CODE": {
+          "type": "cds.Integer"
+        },
+        "MEASURE_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "WEIGHT_MEASURE": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "WEIGHT_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CURRENCY_CODE": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PRICE": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "WIDTH": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "DEPTH": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "HEIGHT": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "DIM_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "jayasree.db.master.product.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "NODE_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "jayasree.db.master.product.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "NODE_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "jayasree.db.master.employees": {
+      "kind": "entity",
+      "includes": [
+        "cuid"
+      ],
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "nameFirst": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameMiddle": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameLast": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameInitials": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "sex": {
+          "type": "jayasree.common.Gender",
+          "length": 1
+        },
+        "language": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "phoneNumber": {
+          "@assert.format": "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$",
+          "type": "jayasree.common.PhoneNumber",
+          "length": 30
+        },
+        "email": {
+          "@assert.format": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
+          "type": "jayasree.common.Email",
+          "length": 225
+        },
+        "loginName": {
+          "type": "cds.String",
+          "length": 12
+        },
+        "Currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "salaryAmount": {
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "accountNumber": {
+          "type": "cds.String",
+          "length": 16
+        },
+        "bankId": {
+          "type": "cds.String",
+          "length": 28
+        },
+        "bankName": {
+          "type": "cds.String",
+          "length": 64
+        }
+      }
+    },
+    "jayasree.db.transaction": {
+      "kind": "context"
+    },
+    "jayasree.db.transaction.purchaseorder": {
+      "kind": "entity",
+      "includes": [
+        "cuid",
+        "jayasree.common.Amount"
+      ],
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "CURRENCY": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GROSS_AMOUNT": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NET_AMOUNT": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TAX_Amount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "PO_ID": {
+          "@title": "{i18n>po_id}",
+          "type": "cds.String",
+          "length": 40
+        },
+        "PARTNER_GUID": {
+          "@title": "{i18n>partner_guid}",
+          "type": "cds.Association",
+          "target": "jayasree.db.master.businesspartner",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "LIFECYCLE_STATUS": {
+          "@title": "{i18n>overall_status}",
+          "type": "cds.String",
+          "length": 1
+        },
+        "OVERALL_STATUS": {
+          "@title": "{i18n>overall_status}",
+          "type": "cds.String",
+          "length": 1
+        },
+        "NOTE": {
+          "@title": "Notes!",
+          "type": "cds.String",
+          "length": 45,
+          "default": {
+            "val": "null"
+          }
+        },
+        "Items": {
+          "@title": "{i18n>po_items}",
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "jayasree.db.transaction.poitems",
+          "on": [
+            {
+              "ref": [
+                "Items",
+                "PARENT_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "jayasree.db.transaction.poitems": {
+      "kind": "entity",
+      "includes": [
+        "cuid",
+        "jayasree.common.Amount"
+      ],
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "CURRENCY": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "sap.common.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GROSS_AMOUNT": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NET_AMOUNT": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TAX_Amount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "PARENT_KEY": {
+          "@title": "{i18n>po_node_key}",
+          "type": "cds.Association",
+          "target": "jayasree.db.transaction.purchaseorder",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "PO_ITEM_POS": {
+          "@title": "{i18n>po_item_pos}",
+          "type": "cds.Integer"
+        },
+        "PRODUCT_GUID": {
+          "@title": "{i18n>product_guid}",
+          "type": "cds.Association",
+          "target": "jayasree.db.master.product",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Language": {
+      "kind": "type",
+      "@title": "{i18n>Language}",
+      "@description": "{i18n>LanguageCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Languages",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Currency": {
+      "kind": "type",
+      "@title": "{i18n>Currency}",
+      "@description": "{i18n>CurrencyCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Currencies",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Country": {
+      "kind": "type",
+      "@title": "{i18n>Country}",
+      "@description": "{i18n>CountryCode.Description}",
+      "type": "cds.Association",
+      "target": "sap.common.Countries",
+      "keys": [
+        {
+          "ref": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "sap.common": {
+      "kind": "context"
+    },
+    "sap.common.Locale": {
+      "kind": "type",
+      "@title": "{i18n>LanguageCode}",
+      "type": "cds.String",
+      "length": 14
+    },
+    "sap.common.Languages": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Languages.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Countries": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Countries.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.Currencies": {
+      "kind": "entity",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "includes": [
+        "sap.common.CodeList"
+      ],
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "minorUnit": {
+          "@title": "{i18n>CurrencyMinorUnit}",
+          "type": "cds.Int16"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "sap.common.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sap.common.CodeList": {
+      "kind": "aspect",
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        }
+      }
+    },
+    "sap.common.TextsAspect": {
+      "kind": "aspect",
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        }
+      }
+    },
+    "cuid": {
+      "kind": "aspect",
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        }
+      }
+    },
+    "managed": {
+      "kind": "aspect",
+      "elements": {
+        "createdAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "createdBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@title": "{i18n>CreatedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        },
+        "modifiedAt": {
+          "@cds.on.insert": {
+            "=": "$now"
+          },
+          "@cds.on.update": {
+            "=": "$now"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedAt}",
+          "@readonly": true,
+          "type": "cds.Timestamp"
+        },
+        "modifiedBy": {
+          "@cds.on.insert": {
+            "=": "$user"
+          },
+          "@cds.on.update": {
+            "=": "$user"
+          },
+          "@UI.HiddenFilter": true,
+          "@title": "{i18n>ChangedBy}",
+          "@readonly": true,
+          "@description": "{i18n>UserID.Description}",
+          "type": "User",
+          "length": 255
+        }
+      }
+    },
+    "temporal": {
+      "kind": "aspect",
+      "elements": {
+        "validFrom": {
+          "@cds.valid.from": true,
+          "type": "cds.Timestamp"
+        },
+        "validTo": {
+          "@cds.valid.to": true,
+          "type": "cds.Timestamp"
+        }
+      }
+    },
+    "User": {
+      "kind": "type",
+      "@title": "{i18n>UserID}",
+      "@description": "{i18n>UserID.Description}",
+      "type": "cds.String",
+      "length": 255
+    },
+    "extensible": {
+      "kind": "aspect",
+      "elements": {
+        "extensions__": {
+          "@cds.api.ignore": true,
+          "type": "cds.String"
+        }
+      }
+    },
+    "CatalogService": {
+      "@source": "srv/CatalogService.cds",
+      "kind": "service",
+      "@path": "CatalogService"
+    },
+    "CatalogService.BusinessPartnerSet": {
+      "kind": "entity",
+      "@Capabilities.Insertable": true,
+      "@Capabilities.Deletable": false,
+      "@cds.odata.valuelist": true,
+      "@UI.Identification": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "COMPANY_NAME"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.master.businesspartner"
+          ]
+        }
+      },
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>bp_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "BP_ROLE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "EMAIL_ADDRESS": {
+          "type": "cds.String",
+          "length": 105
+        },
+        "PHONE_Number": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "FAX_NUMBER": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "WEB_ADDRESS": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "ADDRESS_GUID": {
+          "type": "cds.Association",
+          "target": "CatalogService.AddressSet",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "BP_ID": {
+          "@title": "{i18n>bp_id}",
+          "type": "cds.String",
+          "length": 32
+        },
+        "COMPANY_NAME": {
+          "@title": "{i18n>company_name}",
+          "type": "cds.String",
+          "length": 250
+        }
+      }
+    },
+    "CatalogService.AddressSet": {
+      "kind": "entity",
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.master.address"
+          ]
+        }
+      },
+      "elements": {
+        "NODE_KEY": {
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "CITY": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "POSTAL_CODE": {
+          "type": "cds.String",
+          "length": 8
+        },
+        "STREET": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "BUILDING": {
+          "type": "cds.String",
+          "length": 128
+        },
+        "COUNTRY": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "ADDRESS_TYPE": {
+          "type": "cds.String",
+          "length": 44
+        },
+        "VAL_START_DATE": {
+          "type": "cds.Date"
+        },
+        "VAL_END_DATE": {
+          "type": "cds.Date"
+        },
+        "LATITUDE": {
+          "type": "cds.Decimal"
+        },
+        "LONGITUDE": {
+          "type": "cds.Decimal"
+        },
+        "businesspartner": {
+          "type": "cds.Association",
+          "cardinality": {
+            "max": 1
+          },
+          "target": "CatalogService.BusinessPartnerSet",
+          "on": [
+            {
+              "ref": [
+                "businesspartner",
+                "ADDRESS_GUID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.EmployeeSet": {
+      "kind": "entity",
+      "@readonly": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.master.employees"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "nameFirst": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameMiddle": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameLast": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "nameInitials": {
+          "type": "cds.String",
+          "length": 40
+        },
+        "sex": {
+          "type": "jayasree.common.Gender",
+          "length": 1
+        },
+        "language": {
+          "type": "cds.String",
+          "length": 1
+        },
+        "phoneNumber": {
+          "@assert.format": "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$",
+          "type": "jayasree.common.PhoneNumber",
+          "length": 30
+        },
+        "email": {
+          "@assert.format": "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
+          "type": "jayasree.common.Email",
+          "length": 225
+        },
+        "loginName": {
+          "type": "cds.String",
+          "length": 12
+        },
+        "Currency": {
+          "@title": "{i18n>Currency}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "CatalogService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "salaryAmount": {
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "accountNumber": {
+          "type": "cds.String",
+          "length": 16
+        },
+        "bankId": {
+          "type": "cds.String",
+          "length": 28
+        },
+        "bankName": {
+          "type": "cds.String",
+          "length": 64
+        }
+      }
+    },
+    "CatalogService.purchaseOrderItems": {
+      "kind": "entity",
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_ITEM_POS"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID_NODE_KEY"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.PRODUCT_ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "GROSS_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "NET_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "TAX_Amount"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CURRENCY_code"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.$Type": "UI.HeaderInfoType",
+      "@UI.HeaderInfo.TypeName": "Item",
+      "@UI.HeaderInfo.TypeNamePlural": "Items",
+      "@UI.HeaderInfo.Title.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "PRODUCT_GUID_NODE_KEY"
+      },
+      "@UI.HeaderInfo.Description.$Type": "UI.DataField",
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "PO_ITEM_POS"
+      },
+      "@UI.Facets": [
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Target": "@UI.FieldGroup#LineItemHeader",
+          "Label": "More Info"
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Target": "@UI.FieldGroup#ProductDetails",
+          "Label": "Product Info"
+        }
+      ],
+      "@UI.FieldGroup#LineItemHeader.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#LineItemHeader.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_ITEM_POS"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID_NODE_KEY"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "GROSS_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "NET_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "TAX_Amount"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CURRENCY_code"
+          }
+        }
+      ],
+      "@UI.FieldGroup#ProductDetails.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#ProductDetails.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.PRODUCT_ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.DESCRIPTION"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.TYPE_CODE"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.CATEGORY"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.SUPPLIER_GUID.COMPANY_NAME"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PRODUCT_GUID.TAX_TARIF_CODE"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.transaction.poitems"
+          ]
+        }
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "CURRENCY": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "CatalogService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GROSS_AMOUNT": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NET_AMOUNT": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TAX_Amount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "PARENT_KEY": {
+          "@title": "{i18n>po_node_key}",
+          "type": "cds.Association",
+          "target": "CatalogService.POs",
+          "keys": [
+            {
+              "ref": [
+                "ID"
+              ]
+            }
+          ]
+        },
+        "PO_ITEM_POS": {
+          "@title": "{i18n>po_item_pos}",
+          "type": "cds.Integer"
+        },
+        "PRODUCT_GUID": {
+          "@Common.Text": {
+            "=": "PRODUCT_GUID.DESCRIPTION"
+          },
+          "@ValueList.entity": {
+            "=": "CatalogService.ProductSet"
+          },
+          "@title": "{i18n>product_guid}",
+          "type": "cds.Association",
+          "target": "CatalogService.ProductSet",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.POs": {
+      "kind": "entity",
+      "@title": "Purchase Order",
+      "@odata.draft.enabled": true,
+      "@UI.SelectionFields": [
+        {
+          "=": "PO_ID"
+        },
+        {
+          "=": "GROSS_AMOUNT"
+        },
+        {
+          "=": "LIFECYCLE_STATUS"
+        },
+        {
+          "=": "CURRENCY_code"
+        },
+        {
+          "=": "PARTNER_GUID.COMPANY_NAME"
+        }
+      ],
+      "@UI.LineItem": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "GROSS_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "OVERALL_STATUS"
+          },
+          "Criticality": {
+            "=": "Criticality"
+          },
+          "CriticalityRepresentation": {
+            "#": "WithIcon"
+          }
+        },
+        {
+          "$Type": "UI.DataFieldForAction",
+          "Label": "boost",
+          "Action": "CatalogService.boost",
+          "Inline": true
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CURRENCY_code"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PARTNER_GUID.COMPANY_NAME"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PARTNER_GUID.ADDRESS_GUID.COUNTRY"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "TAX_Amount"
+          }
+        }
+      ],
+      "@UI.HeaderInfo.$Type": "UI.HeaderInfoType",
+      "@UI.HeaderInfo.TypeName": "Purchase Order",
+      "@UI.HeaderInfo.TypeNamePlural": "Purchase Orders",
+      "@UI.HeaderInfo.Title.Label": "Purchase Order Id",
+      "@UI.HeaderInfo.Title.Value": {
+        "=": "PO_ID"
+      },
+      "@UI.HeaderInfo.Description.Label": "Supplier",
+      "@UI.HeaderInfo.Description.Value": {
+        "=": "PARTNER_GUID.COMPANY_NAME"
+      },
+      "@UI.HeaderInfo.ImageUrl": "data:image/jpeg;base64,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",
+      "@UI.Facets": [
+        {
+          "$Type": "UI.CollectionFacet",
+          "Label": "Details",
+          "Facets": [
+            {
+              "$Type": "UI.ReferenceFacet",
+              "Label": "More Details",
+              "Target": {
+                "=": "@UI.FieldGroup#JayaSreeFields"
+              }
+            },
+            {
+              "$Type": "UI.ReferenceFacet",
+              "Label": "Amounts",
+              "Target": {
+                "=": "@UI.FieldGroup#SecondGroup"
+              }
+            }
+          ]
+        },
+        {
+          "$Type": "UI.ReferenceFacet",
+          "Label": "Line Items",
+          "Target": {
+            "=": "Items.@UI.LineItem"
+          }
+        }
+      ],
+      "@UI.FieldGroup#SecondGroup.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#SecondGroup.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "GROSS_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "NET_AMOUNT"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "TAX_Amount"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "CURRENCY_code"
+          }
+        }
+      ],
+      "@UI.FieldGroup#JayaSreeFields.$Type": "UI.FieldGroupType",
+      "@UI.FieldGroup#JayaSreeFields.Data": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PO_ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PARTNER_GUID_NODE_KEY"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PARTNER_GUID.BP_ID"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "PARTNER_GUID.COMPANY_NAME"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "LIFECYCLE_STATUS"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.transaction.purchaseorder"
+          ]
+        },
+        "columns": [
+          "*",
+          {
+            "xpr": [
+              "case",
+              {
+                "ref": [
+                  "OVERALL_STATUS"
+                ]
+              },
+              "when",
+              {
+                "val": "N"
+              },
+              "then",
+              {
+                "val": "New"
+              },
+              "when",
+              {
+                "val": "B"
+              },
+              "then",
+              {
+                "val": "Blocked"
+              },
+              "when",
+              {
+                "val": "D"
+              },
+              "then",
+              {
+                "val": "Deliver"
+              },
+              "when",
+              {
+                "val": "P"
+              },
+              "then",
+              {
+                "val": "Planned"
+              },
+              "else",
+              {
+                "val": "Unknown"
+              },
+              "end"
+            ],
+            "as": "OVERALL_STATUS",
+            "cast": {
+              "type": "cds.String",
+              "length": 20
+            }
+          },
+          {
+            "xpr": [
+              "case",
+              {
+                "ref": [
+                  "OVERALL_STATUS"
+                ]
+              },
+              "when",
+              {
+                "val": "N"
+              },
+              "then",
+              {
+                "val": 2
+              },
+              "when",
+              {
+                "val": "B"
+              },
+              "then",
+              {
+                "val": 1
+              },
+              "when",
+              {
+                "val": "D"
+              },
+              "then",
+              {
+                "val": 3
+              },
+              "when",
+              {
+                "val": "P"
+              },
+              "then",
+              {
+                "val": 3
+              },
+              "else",
+              {
+                "val": 1
+              },
+              "end"
+            ],
+            "as": "Criticality",
+            "cast": {
+              "type": "cds.Integer"
+            }
+          },
+          {
+            "ref": [
+              "Items"
+            ],
+            "cast": {
+              "target": "CatalogService.purchaseOrderItems"
+            }
+          }
+        ]
+      },
+      "elements": {
+        "ID": {
+          "key": true,
+          "type": "cds.UUID"
+        },
+        "CURRENCY": {
+          "@title": "{i18n>currency_code}",
+          "@description": "{i18n>CurrencyCode.Description}",
+          "type": "Currency",
+          "target": "CatalogService.Currencies",
+          "keys": [
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "GROSS_AMOUNT": {
+          "@title": "{i18n>gross_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "NET_AMOUNT": {
+          "@title": "{i18n>net_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "TAX_Amount": {
+          "@title": "{i18n>tax_amount}",
+          "@Semantics.amount.currencyCode": "CURRENCY_CODE",
+          "@sap.unit": "CURRENCY_CODE",
+          "type": "jayasree.common.AmountT",
+          "precision": 10,
+          "scale": 2
+        },
+        "PO_ID": {
+          "@title": "{i18n>po_id}",
+          "type": "cds.String",
+          "length": 40
+        },
+        "PARTNER_GUID": {
+          "@Common.Text": "PARTNER_GUID.COMPANY_NAME",
+          "@ValueList.entity": {
+            "=": "CatalogService.BusinessPartnerSet"
+          },
+          "@title": "{i18n>partner_guid}",
+          "type": "cds.Association",
+          "target": "CatalogService.BusinessPartnerSet",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "LIFECYCLE_STATUS": {
+          "@title": "{i18n>overall_status}",
+          "type": "cds.String",
+          "length": 1
+        },
+        "OVERALL_STATUS": {
+          "@Core.Computed": true,
+          "type": "cds.String",
+          "length": 20
+        },
+        "NOTE": {
+          "@title": "Notes!",
+          "type": "cds.String",
+          "length": 45,
+          "default": {
+            "val": "null"
+          }
+        },
+        "Items": {
+          "@title": "{i18n>po_items}",
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.purchaseOrderItems",
+          "on": [
+            {
+              "ref": [
+                "Items",
+                "PARENT_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$self"
+              ]
+            }
+          ]
+        },
+        "Criticality": {
+          "@Core.Computed": true,
+          "type": "cds.Integer"
+        }
+      },
+      "actions": {
+        "boost": {
+          "kind": "action"
+        },
+        "largestOrder": {
+          "kind": "function",
+          "returns": {
+            "items": {
+              "type": "CatalogService.POs"
+            }
+          }
+        }
+      }
+    },
+    "CatalogService.ProductSet": {
+      "kind": "entity",
+      "@cds.odata.valuelist": true,
+      "@UI.Identification": [
+        {
+          "$Type": "UI.DataField",
+          "Value": {
+            "=": "DESCRIPTION"
+          }
+        }
+      ],
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.master.product"
+          ]
+        }
+      },
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "PRODUCT_ID": {
+          "@title": "{i18n>product_guid}",
+          "type": "cds.String",
+          "length": 28
+        },
+        "TYPE_CODE": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CATEGORY": {
+          "type": "cds.String",
+          "length": 32
+        },
+        "DESCRIPTION": {
+          "@title": "{i18n>name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "SUPPLIER_GUID": {
+          "type": "cds.Association",
+          "target": "CatalogService.BusinessPartnerSet",
+          "keys": [
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "TAX_TARIF_CODE": {
+          "type": "cds.Integer"
+        },
+        "MEASURE_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "WEIGHT_MEASURE": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "WEIGHT_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "CURRENCY_CODE": {
+          "type": "cds.String",
+          "length": 4
+        },
+        "PRICE": {
+          "type": "cds.Decimal",
+          "precision": 15,
+          "scale": 2
+        },
+        "WIDTH": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "DEPTH": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "HEIGHT": {
+          "type": "cds.Decimal",
+          "precision": 5,
+          "scale": 2
+        },
+        "DIM_UNIT": {
+          "type": "cds.String",
+          "length": 2
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.ProductSet.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "NODE_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.ProductSet.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "NODE_KEY"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "NODE_KEY"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "jayasree.db.master.product.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "includes": [
+        "sap.common.TextsAspect"
+      ],
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "NODE_KEY": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "DESCRIPTION": {
+          "@title": "{i18n>name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        }
+      }
+    },
+    "sap.common.Languages.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "includes": [
+        "sap.common.TextsAspect"
+      ],
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@Common.Text": {
+            "=": "name"
+          },
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        }
+      }
+    },
+    "sap.common.Countries.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "includes": [
+        "sap.common.TextsAspect"
+      ],
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CountryCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "sap.common.Currencies.texts": {
+      "kind": "entity",
+      "@odata.draft.enabled": false,
+      "includes": [
+        "sap.common.TextsAspect"
+      ],
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    },
+    "CatalogService.Currencies": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@cds.autoexpose": true,
+      "@cds.persistence.skip": "if-unused",
+      "@UI.Identification": [
+        {
+          "Value": {
+            "=": "name"
+          }
+        }
+      ],
+      "@cds.odata.valuelist": true,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies"
+          ]
+        }
+      },
+      "elements": {
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": true,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        },
+        "symbol": {
+          "@title": "{i18n>CurrencySymbol}",
+          "type": "cds.String",
+          "length": 5
+        },
+        "minorUnit": {
+          "@title": "{i18n>CurrencyMinorUnit}",
+          "type": "cds.Int16"
+        },
+        "texts": {
+          "type": "cds.Composition",
+          "cardinality": {
+            "max": "*"
+          },
+          "target": "CatalogService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "texts",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            }
+          ]
+        },
+        "localized": {
+          "type": "cds.Association",
+          "target": "CatalogService.Currencies.texts",
+          "on": [
+            {
+              "ref": [
+                "localized",
+                "code"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "code"
+              ]
+            },
+            "and",
+            {
+              "ref": [
+                "localized",
+                "locale"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "$user",
+                "locale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "CatalogService.ProductSet.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "jayasree.db.master.product.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "NODE_KEY": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>product_key}",
+          "key": true,
+          "type": "jayasree.common.Guid",
+          "length": 32
+        },
+        "DESCRIPTION": {
+          "@title": "{i18n>name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        }
+      }
+    },
+    "CatalogService.Currencies.texts": {
+      "kind": "entity",
+      "@cds.autoexposed": true,
+      "@odata.draft.enabled": false,
+      "projection": {
+        "from": {
+          "ref": [
+            "sap.common.Currencies.texts"
+          ]
+        }
+      },
+      "elements": {
+        "locale": {
+          "@title": "{i18n>LanguageCode}",
+          "key": true,
+          "type": "sap.common.Locale",
+          "length": 14
+        },
+        "name": {
+          "@title": "{i18n>Name}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 255
+        },
+        "descr": {
+          "@title": "{i18n>Description}",
+          "localized": null,
+          "type": "cds.String",
+          "length": 1000
+        },
+        "code": {
+          "@odata.containment.ignore": true,
+          "@title": "{i18n>CurrencyCode}",
+          "@Common.Text": {
+            "=": "name"
+          },
+          "key": true,
+          "type": "cds.String",
+          "length": 3
+        }
+      }
+    }
+  },
+  "extensions": [
+    {
+      "annotate": "jayasree.db.transaction.poitems",
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>po_node_key}"
+        },
+        "OVERALL_STATUS": {
+          "@title": "{i18n>overall_status}"
+        }
+      }
+    },
+    {
+      "annotate": "jayasree.db.transaction.purchaseorder",
+      "elements": {
+        "NODE_KEY": {
+          "@title": "{i18n>po_node_key}"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "creator": "CDS Compiler v3.9.4",
+    "flavor": "inferred"
+  },
+  "$version": "2.0"
+}
